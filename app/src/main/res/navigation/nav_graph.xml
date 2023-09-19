@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_home">
+
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="com.example.jetpack_mvvm_sample.fragment.HomeFragment"
+        android:label="@string/home_fragment_label"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_HomeFragment_to_ListFragment"
+            app:destination="@id/fragment_list" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_location"
+        android:name="com.example.jetpack_mvvm_sample.fragment.LocationFragment"
+        android:label="@string/location_fragment_label"
+        tools:layout="@layout/fragment_location" />
+    <fragment
+        android:id="@+id/fragment_list"
+        android:name="com.example.jetpack_mvvm_sample.fragment.ListFragment"
+        android:label="@string/list_fragment_label"
+        tools:layout="@layout/fragment_list">
+
+        <action
+            android:id="@+id/action_ListFragment_to_HomeFragment"
+            app:destination="@id/fragment_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_settings"
+        android:name="com.example.jetpack_mvvm_sample.fragment.SettingsFragment"
+        android:label="@string/setting_fragment_label"
+        tools:layout="@layout/fragment_settings" />
+</navigation>

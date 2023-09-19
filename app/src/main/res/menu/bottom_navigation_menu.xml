@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/fragment_home"
+        android:enabled="true"
+        android:icon="@drawable/selector_home"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/fragment_location"
+        android:enabled="true"
+        android:icon="@drawable/selector_location"
+        android:title="@string/location" />
+
+    <item
+        android:id="@+id/fragment_list"
+        android:enabled="true"
+        android:icon="@drawable/selector_list"
+        android:title="@string/list" />
+
+    <item
+        android:id="@+id/fragment_settings"
+        android:enabled="true"
+        android:icon="@drawable/selector_settings"
+        android:title="@string/settings" />
+
+</menu>
