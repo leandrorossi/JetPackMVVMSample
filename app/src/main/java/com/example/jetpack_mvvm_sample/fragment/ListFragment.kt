@@ -5,17 +5,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jetpack_mvvm_sample.R
+import com.example.jetpack_mvvm_sample.adapter.CustomerAdapter
 import com.example.jetpack_mvvm_sample.databinding.FragmentListBinding
+import com.example.jetpack_mvvm_sample.viewModel.ListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ListFragment : Fragment() {
 
     private var _binding: FragmentListBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+
+    private val viewModel: ListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,8 +30,18 @@ class ListFragment : Fragment() {
     ): View? {
 
         _binding = FragmentListBinding.inflate(inflater, container, false)
-        return binding.root
 
+        binding.rcvList.layoutManager = LinearLayoutManager(context)
+        binding.rcvList.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+
+        //viewModel.insert()
+
+        viewModel.customerLiveData.observe(viewLifecycleOwner) {customers ->
+            val customerAdapter = CustomerAdapter(customers)
+            binding.rcvList.adapter = customerAdapter
+        }
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,4 +56,5 @@ class ListFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

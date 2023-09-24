@@ -4,30 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:scrollbars="vertical"
     tools:context=".fragment.ListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:paddingVertical="12dp">
 
         <Button
             android:id="@+id/button_second"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/previous"
-            app:layout_constraintBottom_toTopOf="@id/textview_second"
+            app:layout_constraintBottom_toTopOf="@id/rcv_list"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textview_second"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/lorem_ipsum"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:scrollbars="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

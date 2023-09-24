@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="customer"
+            type="com.example.jetpack_mvvm_sample.model.Customer" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="5dp">
+
+        <TextView
+            android:id="@+id/textview_rcv_list_first"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{customer.name}"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textview_rcv_list_second"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="@{customer.email}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_rcv_list_first" />
+
+        <TextView
+            android:id="@+id/textview_rcv_third"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="@{`Idade: ` + customer.age + ` anos`}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_rcv_list_second" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
