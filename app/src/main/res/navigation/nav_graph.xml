@@ -29,10 +29,22 @@
         <action
             android:id="@+id/action_ListFragment_to_HomeFragment"
             app:destination="@id/fragment_home" />
+        <action
+            android:id="@+id/action_fragment_list_to_fragment_customer"
+            app:destination="@+id/fragment_customer"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/fragment_settings"
         android:name="com.example.jetpack_mvvm_sample.fragment.SettingsFragment"
         android:label="@string/setting_fragment_label"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/fragment_customer"
+        android:name="com.example.jetpack_mvvm_sample.fragment.CustomerFragment"
+        android:label="@string/customer_fragment_label"
+        tools:layout="@layout/fragment_customer" />
 </navigation>
