@@ -5,12 +5,12 @@
     <string name="location_fragment_label">Localização Fragment</string>
     <string name="list_fragment_label">Lista Fragment</string>
     <string name="setting_fragment_label">Opções Fragment</string>
-    <string name="customer_fragment_label">Cliente Fragment</string>
+    <string name="employee_fragment_label">Funcionário Fragment</string>
 
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="search">Pesquisar</string>
-    <string name="customer_list">Lista de Clientes</string>
+    <string name="employee_list">Lista de Funcionários</string>
     <string name="empty_list">Nenhum item na lista</string>
 
     <string name="home">Home</string>

@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.jetpack_mvvm_sample.R
-import com.example.jetpack_mvvm_sample.databinding.FragmentCustomerBinding
+import com.example.jetpack_mvvm_sample.databinding.FragmentEmployeeBinding
 
-class CustomerFragment : Fragment() {
+class EmployeeFragment : Fragment() {
 
-    private var _binding: FragmentCustomerBinding? = null
+    private var _binding: FragmentEmployeeBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -18,7 +17,7 @@ class CustomerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding =  FragmentCustomerBinding.inflate(inflater, container, false)
+        _binding =  FragmentEmployeeBinding.inflate(inflater, container, false)
 
 
 

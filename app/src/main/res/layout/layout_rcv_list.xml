@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="customer"
-            type="com.example.jetpack_mvvm_sample.model.Customer" />
+            name="employee"
+            type="com.example.jetpack_mvvm_sample.model.Employee" />
 
     </data>
 
@@ -22,7 +22,7 @@
             android:id="@+id/textview_rcv_list_first"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{customer.name}"
+            android:text="@{employee.name}"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:text="@{customer.email}"
+            android:text="@{employee.email}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview_rcv_list_first" />
@@ -43,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:text="@{`Idade: ` + customer.age + ` anos`}"
+            android:text="@{`Idade: ` + employee.age + ` anos`}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview_rcv_list_second" />

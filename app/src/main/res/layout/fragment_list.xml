@@ -13,7 +13,7 @@
         android:id="@+id/textview_list"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/customer_list"
+        android:text="@string/employee_list"
         android:textAlignment="center"
         android:textSize="22sp"
         android:textStyle="bold"

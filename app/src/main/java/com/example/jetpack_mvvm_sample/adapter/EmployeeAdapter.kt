@@ -7,29 +7,29 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jetpack_mvvm_sample.R
 import com.example.jetpack_mvvm_sample.databinding.LayoutRcvListBinding
-import com.example.jetpack_mvvm_sample.model.Customer
+import com.example.jetpack_mvvm_sample.model.Employee
 
-class CustomerAdapter(private val dataSet: ArrayList<Customer>) :
-    RecyclerView.Adapter<CustomerAdapter.ViewHolder>() {
+class EmployeeAdapter(private val dataSet: ArrayList<Employee>) :
+    RecyclerView.Adapter<EmployeeAdapter.ViewHolder>() {
 
     private lateinit var binding: LayoutRcvListBinding
-    private val dataSetFilter = ArrayList<Customer>().apply {
+    private val dataSetFilter = ArrayList<Employee>().apply {
         addAll(dataSet)
     }
 
     class ViewHolder(private val binding: LayoutRcvListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(customer: Customer) {
-            binding.customer = customer
+        fun bind(employee: Employee) {
+            binding.employee = employee
             binding.root.setOnLongClickListener {
-                it.findNavController().navigate(R.id.action_fragment_list_to_fragment_customer)
+                it.findNavController().navigate(R.id.action_fragment_list_to_fragment_employee)
                 true
             }
         }
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmployeeAdapter.ViewHolder {
 
         binding = LayoutRcvListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
@@ -37,7 +37,7 @@ class CustomerAdapter(private val dataSet: ArrayList<Customer>) :
 
     }
 
-    override fun onBindViewHolder(holder: CustomerAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: EmployeeAdapter.ViewHolder, position: Int) {
 
         holder.bind(dataSet[position])
 
@@ -46,13 +46,13 @@ class CustomerAdapter(private val dataSet: ArrayList<Customer>) :
     override fun getItemCount(): Int = dataSet.size
 
     fun gelFilter(): Filter {
-        return customerFilter
+        return employeeFilter
     }
 
-    private val customerFilter = object : Filter() {
+    private val employeeFilter = object : Filter() {
         override fun performFiltering(p0: CharSequence?): FilterResults {
 
-            val filteredList: ArrayList<Customer> = ArrayList()
+            val filteredList: ArrayList<Employee> = ArrayList()
 
             if (p0.isNullOrEmpty()) {
 
@@ -62,7 +62,7 @@ class CustomerAdapter(private val dataSet: ArrayList<Customer>) :
 
                 val query = p0.toString().trim().lowercase()
                 dataSetFilter.forEach {
-                    if (it.name.lowercase().contains(query)) {
+                    if (it.name?.lowercase()?.contains(query) == true) {
                         filteredList.add(it)
                     }
                 }
@@ -80,7 +80,7 @@ class CustomerAdapter(private val dataSet: ArrayList<Customer>) :
             if (p1?.values is ArrayList<*>) {
 
                 dataSet.clear()
-                dataSet.addAll(p1.values as ArrayList<Customer>)
+                dataSet.addAll(p1.values as ArrayList<Employee>)
                 notifyDataSetChanged()
 
             }

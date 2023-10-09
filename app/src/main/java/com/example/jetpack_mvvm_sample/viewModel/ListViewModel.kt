@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.jetpack_mvvm_sample.model.Customer
-import com.example.jetpack_mvvm_sample.repository.CustomerRepository
+import com.example.jetpack_mvvm_sample.model.Employee
+import com.example.jetpack_mvvm_sample.repository.EmployeeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,20 +13,20 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class ListViewModel @Inject constructor(private val customerRepository: CustomerRepository) :
+class ListViewModel @Inject constructor(private val employeeRepository: EmployeeRepository) :
     ViewModel() {
 
-    private val _customerLiveData = MutableLiveData<List<Customer>>()
-    val customerLiveData: LiveData<List<Customer>> get() = _customerLiveData
+    private val _employeeLiveData = MutableLiveData<List<Employee>>()
+    val employeeLiveData: LiveData<List<Employee>> get() = _employeeLiveData
 
     init {
-        getCustomers()
+        getEmployees()
     }
 
-    private fun getCustomers() {
+    private fun getEmployees() {
 
         viewModelScope.launch {
-            _customerLiveData.value = customerRepository.getAllCustomer()
+            _employeeLiveData.value = employeeRepository.getAllEmployee()
         }
 
     }
@@ -37,11 +37,9 @@ class ListViewModel @Inject constructor(private val customerRepository: Customer
             withContext(Dispatchers.IO) {
 
                 for (i in 2..1000) {
-                    val customer = Customer(i, "Jhon", "jhon@gmail.com", 20)
-                    customerRepository.insertCustomer(customer)
+                    val employee = Employee(i, "Jhon", "jhon@gmail.com", 20, "Masculino", "Department", null)
+                    employeeRepository.insertEmployee(employee)
                 }
-                //customer?.let { customerRepository.insertCustomer(it) }
-
             }
         }
 

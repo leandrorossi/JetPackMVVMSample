@@ -17,9 +17,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jetpack_mvvm_sample.R
-import com.example.jetpack_mvvm_sample.adapter.CustomerAdapter
+import com.example.jetpack_mvvm_sample.adapter.EmployeeAdapter
 import com.example.jetpack_mvvm_sample.databinding.FragmentListBinding
-import com.example.jetpack_mvvm_sample.model.Customer
+import com.example.jetpack_mvvm_sample.model.Employee
 import com.example.jetpack_mvvm_sample.viewModel.ListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,7 +30,7 @@ class ListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ListViewModel by viewModels()
-    private var customerAdapter: CustomerAdapter? = null
+    private var employeeAdapter: EmployeeAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,18 +49,18 @@ class ListFragment : Fragment() {
             )
         )
 
-        viewModel.customerLiveData.observe(viewLifecycleOwner) { customers ->
+        viewModel.employeeLiveData.observe(viewLifecycleOwner) { employees ->
 
-            customerAdapter = CustomerAdapter(customers as ArrayList<Customer>)
+            employeeAdapter = EmployeeAdapter(employees as ArrayList<Employee>)
 
-            if (customerAdapter?.itemCount == 0) {
+            if (employeeAdapter?.itemCount == 0) {
 
                 binding.imageEmptyList.visibility = View.VISIBLE
                 binding.textviewEmptyList.visibility = View.VISIBLE
 
             }
 
-            binding.rcvList.adapter = customerAdapter
+            binding.rcvList.adapter = employeeAdapter
 
         }
 
@@ -91,12 +91,12 @@ class ListFragment : Fragment() {
 
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
-                        customerAdapter?.gelFilter()?.filter(query)
+                        employeeAdapter?.gelFilter()?.filter(query)
                         return true
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean {
-                        customerAdapter?.gelFilter()?.filter(newText)
+                        employeeAdapter?.gelFilter()?.filter(newText)
                         return true
                     }
                 })
@@ -128,7 +128,7 @@ class ListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        customerAdapter = null
+        employeeAdapter = null
     }
 
 }

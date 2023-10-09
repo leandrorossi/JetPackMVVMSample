@@ -47,10 +47,10 @@ dependencies {
 
     val roomVersion = "2.5.2"
 
+    implementation("androidx.room:room-ktx:$roomVersion")
     implementation("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
     ksp("androidx.room:room-compiler:$roomVersion")
-    implementation("androidx.room:room-ktx:$roomVersion")
 
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -72,6 +72,23 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+}
+
+class RoomSchemaArgProvider(
+    @get:InputDirectory
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    val schemaDir: File
+) : CommandLineArgumentProvider {
+
+    override fun asArguments(): Iterable<String> {
+        // Note: If you're using KSP, change the line below to return
+        // listOf("room.schemaLocation=${schemaDir.path}").
+        return listOf("room.schemaLocation=${schemaDir.path}")
+    }
+}
+
+ksp {
+    arg(RoomSchemaArgProvider(File(projectDir, "\\build\\schemas")))
 }
 
 kapt {
