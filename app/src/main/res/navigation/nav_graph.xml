@@ -46,5 +46,17 @@
         android:id="@+id/fragment_employee"
         android:name="com.example.jetpack_mvvm_sample.fragment.EmployeeFragment"
         android:label="@string/employee_fragment_label"
-        tools:layout="@layout/fragment_employee" />
+        tools:layout="@layout/fragment_employee">
+
+        <argument
+            android:name="isNewEmployee"
+            android:defaultValue="false"
+            app:argType="boolean"
+            app:nullable="false" />
+        <argument
+            android:name="idEmployee"
+            android:defaultValue="0"
+            app:argType="integer"
+            app:nullable="false" />
+    </fragment>
 </navigation>

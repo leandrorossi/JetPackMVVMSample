@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jetpack_mvvm_sample.R
 import com.example.jetpack_mvvm_sample.databinding.LayoutRcvListBinding
+import com.example.jetpack_mvvm_sample.fragment.ListFragmentDirections
 import com.example.jetpack_mvvm_sample.model.Employee
 
 class EmployeeAdapter(private val dataSet: ArrayList<Employee>) :
@@ -22,7 +23,8 @@ class EmployeeAdapter(private val dataSet: ArrayList<Employee>) :
         fun bind(employee: Employee) {
             binding.employee = employee
             binding.root.setOnLongClickListener {
-                it.findNavController().navigate(R.id.action_fragment_list_to_fragment_employee)
+                val action = ListFragmentDirections.actionFragmentListToFragmentEmployee(false, employee.id)
+                it.findNavController().navigate(action)
                 true
             }
         }

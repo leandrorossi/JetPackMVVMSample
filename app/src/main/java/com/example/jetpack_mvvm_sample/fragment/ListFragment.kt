@@ -41,6 +41,11 @@ class ListFragment : Fragment() {
 
         setMenu()
 
+        binding.fabList.setOnClickListener {
+            val action = ListFragmentDirections.actionFragmentListToFragmentEmployee(true)
+            findNavController().navigate(action)
+        }
+
         binding.rcvList.layoutManager = LinearLayoutManager(context)
         binding.rcvList.addItemDecoration(
             DividerItemDecoration(
@@ -49,6 +54,7 @@ class ListFragment : Fragment() {
             )
         )
 
+        viewModel.getEmployees()
         viewModel.employeeLiveData.observe(viewLifecycleOwner) { employees ->
 
             employeeAdapter = EmployeeAdapter(employees as ArrayList<Employee>)

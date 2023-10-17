@@ -19,28 +19,10 @@ class ListViewModel @Inject constructor(private val employeeRepository: Employee
     private val _employeeLiveData = MutableLiveData<List<Employee>>()
     val employeeLiveData: LiveData<List<Employee>> get() = _employeeLiveData
 
-    init {
-        getEmployees()
-    }
-
-    private fun getEmployees() {
+    fun getEmployees() {
 
         viewModelScope.launch {
-            _employeeLiveData.value = employeeRepository.getAllEmployee()
-        }
-
-    }
-
-    fun insert() {
-
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-
-                for (i in 2..1000) {
-                    val employee = Employee(i, "Jhon", "jhon@gmail.com", 20, "Masculino", "Department", null)
-                    employeeRepository.insertEmployee(employee)
-                }
-            }
+            _employeeLiveData.postValue(employeeRepository.getAllEmployee())
         }
 
     }

@@ -11,8 +11,8 @@ import com.example.jetpack_mvvm_sample.model.Employee
 
 @Database(
     entities = [Employee::class],
-    version = 2,
-    autoMigrations = [AutoMigration(from = 1, to = 2, spec = AppDatabase.MyAutoMigration::class)]
+    version = 3,
+    autoMigrations = [AutoMigration(from = 2, to = 3)]
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun employeeDao(): EmployeeDao

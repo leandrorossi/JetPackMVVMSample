@@ -5,14 +5,14 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "employee")
-data class Employee(
+class Employee {
 
-    @PrimaryKey var id: Int,
-    @ColumnInfo(name = "name") var name: String?,
-    @ColumnInfo(name = "email") var email: String?,
-    @ColumnInfo(name = "age") var age: Int?,
-    @ColumnInfo(name = "gender") var gender: String?,
-    @ColumnInfo(name = "department") var department: String?,
-    @ColumnInfo(name = "admission") var admission: String?
+    @PrimaryKey(autoGenerate = true) var id: Int = 0
+    @ColumnInfo(name = "name") var name: String? = null
+    @ColumnInfo(name = "email") var email: String? = null
+    @ColumnInfo(name = "age") var age: Int? = null
+    @ColumnInfo(name = "gender") var gender: String? = null
+    @ColumnInfo(name = "department") var department: String? = null
+    @ColumnInfo(name = "admission") var admission: String? = null
 
-)
+}

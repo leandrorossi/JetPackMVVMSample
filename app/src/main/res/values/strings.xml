@@ -18,6 +18,12 @@
     <string name="list">Lista</string>
     <string name="settings">Opções</string>
 
+    <string-array name="departments">
+        <item>Administrativo</item>
+        <item>Eletrônico</item>
+        <item>Limpeza</item>
+    </string-array>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
