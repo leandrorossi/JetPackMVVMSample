@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.jetpack_mvvm_sample.R
 import com.example.jetpack_mvvm_sample.databinding.FragmentLocationBinding
 import com.example.jetpack_mvvm_sample.viewModel.LocationViewModel
@@ -37,10 +39,12 @@ class LocationFragment : Fragment() {
         binding.txtAccuracy.text = "Precisão: 0 m"
 
         lifecycleScope.launch {
-            viewModel.location.collect { loc ->
-                binding.txtLatitude.text = "Latitude: " + loc?.latitude.toString()
-                binding.txtLongitude.text = "Longitude: " + loc?.longitude.toString()
-                binding.txtAccuracy.text = "Precisão: " + loc?.accuracy.toString() + " m"
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.location.collect { loc ->
+                    binding.txtLatitude.text = "Latitude: " + loc?.latitude.toString()
+                    binding.txtLongitude.text = "Longitude: " + loc?.longitude.toString()
+                    binding.txtAccuracy.text = "Precisão: " + loc?.accuracy.toString() + " m"
+                }
             }
         }
 

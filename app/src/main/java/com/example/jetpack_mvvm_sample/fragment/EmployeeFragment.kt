@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.jetpack_mvvm_sample.R
@@ -19,6 +21,7 @@ import com.example.jetpack_mvvm_sample.viewModel.EmployeeViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class EmployeeFragment : Fragment() {
@@ -28,6 +31,8 @@ class EmployeeFragment : Fragment() {
 
     private val viewModel: EmployeeViewModel by viewModels()
     private val args: EmployeeFragmentArgs by navArgs()
+
+    private var isFormCorrect = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,19 +54,6 @@ class EmployeeFragment : Fragment() {
             binding.txtILDepartment.isExpandedHintEnabled = false
 
             viewModel.getEmployee(idEmployee)
-            viewModel.employeeLiveData.observe(viewLifecycleOwner) { employee ->
-
-                binding.edtName.setText(employee.name)
-                binding.edtEmail.setText(employee.email)
-                binding.edtAge.setText(employee.age.toString())
-                binding.edtDepartment.setText(employee.department, false)
-
-                when (employee.gender) {
-                    "Feminino" -> binding.radiogroupGender.check(binding.radiobutton1.id)
-                    "Masculino" -> binding.radiogroupGender.check(binding.radiobutton2.id)
-                }
-
-            }
 
         }
 
@@ -76,30 +68,66 @@ class EmployeeFragment : Fragment() {
         hintExpandedListener(binding.edtEmail, binding.txtILEmail)
         hintExpandedListener(binding.edtAge, binding.txtILAge)
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uIState.collect { state ->
+
+                    state.employee?.let {
+
+                        binding.edtName.setText(it.name)
+                        binding.edtEmail.setText(it.email)
+                        binding.edtAge.setText(it.age.toString())
+                        binding.edtDepartment.setText(it.department, false)
+
+                        when (it.gender) {
+                            "Feminino" -> binding.radiogroupGender.check(binding.radiobutton1.id)
+                            "Masculino" -> binding.radiogroupGender.check(binding.radiobutton2.id)
+                        }
+
+                    }
+
+                    if (!state.isNameCorrect) {
+
+                        isFormCorrect = false
+                        binding.edtName.error = "Campo Obrigatório"
+
+                    }
+                    if (!state.isEmailCorrect) {
+
+                        isFormCorrect = false
+                        binding.edtEmail.error = "Campo Obrigatório"
+
+                    }
+
+                }
+
+            }
+        }
+
         binding.buttonSave.setOnClickListener {
 
-            if (!checkFields()) return@setOnClickListener
+            viewModel.checkForm(binding.edtName.text.toString(), binding.edtEmail.text.toString())
 
-            val employee = Employee()
-            employee.name = binding.edtName.text.toString()
-            employee.email = binding.edtEmail.text.toString()
-            employee.age = binding.edtAge.text.toString().toIntOrNull()
-            employee.department = binding.edtDepartment.text.toString()
+            if (!isFormCorrect) return@setOnClickListener
 
-            when (binding.radiogroupGender.checkedRadioButtonId) {
-                R.id.radiobutton_1 -> employee.gender = binding.radiobutton1.text.toString()
-                R.id.radiobutton_2 -> employee.gender = binding.radiobutton2.text.toString()
-                else -> employee.gender = null
+            val name = binding.edtName.text.toString()
+            val email = binding.edtEmail.text.toString()
+            val age = binding.edtAge.text.toString().toInt()
+            val department = binding.edtDepartment.text.toString()
+
+            val gender = when (binding.radiogroupGender.checkedRadioButtonId) {
+                R.id.radiobutton_1 -> binding.radiobutton1.text.toString()
+                R.id.radiobutton_2 ->  binding.radiobutton2.text.toString()
+                else -> null
             }
 
             if (isNewEmployee) {
 
-                viewModel.insertEmployee(employee)
+                viewModel.insertEmployee(name, email, age, gender, department)
 
             } else {
 
-                employee.id = idEmployee
-                viewModel.updateEmployee(employee)
+                viewModel.updateEmployee(idEmployee, name, email, age, gender, department)
 
             }
 
@@ -108,29 +136,6 @@ class EmployeeFragment : Fragment() {
         }
 
         return binding.root
-    }
-
-    private fun checkFields(): Boolean {
-
-        var isCorrect = true
-
-        val name = binding.edtName.text
-        val email = binding.edtEmail.text
-
-        if (name.isNullOrEmpty()) {
-
-            binding.edtName.error = "Campo Obrigatório"
-            isCorrect = false
-
-        }
-        if (email.isNullOrEmpty()) {
-
-            binding.edtEmail.error = "Campo Obrigatório"
-            isCorrect = false
-
-        }
-
-        return isCorrect
     }
 
     private fun hintExpandedListener(
