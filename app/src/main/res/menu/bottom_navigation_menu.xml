@@ -19,10 +19,4 @@
         android:icon="@drawable/selector_list"
         android:title="@string/list" />
 
-    <item
-        android:id="@+id/fragment_settings"
-        android:enabled="true"
-        android:icon="@drawable/selector_settings"
-        android:title="@string/settings" />
-
 </menu>

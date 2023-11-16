@@ -38,11 +38,6 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
-        android:id="@+id/fragment_settings"
-        android:name="com.example.jetpack_mvvm_sample.fragment.SettingsFragment"
-        android:label="@string/setting_fragment_label"
-        tools:layout="@layout/fragment_settings" />
-    <fragment
         android:id="@+id/fragment_employee"
         android:name="com.example.jetpack_mvvm_sample.fragment.EmployeeFragment"
         android:label="@string/employee_fragment_label"
