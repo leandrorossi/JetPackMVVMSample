@@ -2,9 +2,12 @@ package com.example.jetpack_mvvm_sample.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.jetpack_mvvm_sample.di.IODispatcher
 import com.example.jetpack_mvvm_sample.model.Employee
 import com.example.jetpack_mvvm_sample.repository.EmployeeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -19,7 +22,8 @@ data class EmployeeUiState(
 
 @HiltViewModel
 class EmployeeViewModel @Inject constructor(
-    private val employeeRepository: EmployeeRepository
+    private val employeeRepository: EmployeeRepository,
+    @IODispatcher private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _uIState = MutableStateFlow(EmployeeUiState())
@@ -27,7 +31,7 @@ class EmployeeViewModel @Inject constructor(
 
     fun getEmployee(id: Int) {
 
-        viewModelScope.launch {
+        viewModelScope.launch(ioDispatcher) {
             _uIState.update { employeeUiState ->
                 employeeUiState.copy(employee = employeeRepository.getByIdEmployee(id))
             }
@@ -43,7 +47,7 @@ class EmployeeViewModel @Inject constructor(
         department: String?
     ) {
 
-        viewModelScope.launch {
+        viewModelScope.launch(ioDispatcher) {
 
             val employee = Employee()
             employee.name = name
@@ -67,7 +71,7 @@ class EmployeeViewModel @Inject constructor(
         department: String?
     ) {
 
-        viewModelScope.launch {
+        viewModelScope.launch(ioDispatcher) {
 
             val employee = Employee()
             employee.id = id

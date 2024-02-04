@@ -64,6 +64,11 @@ class ListFragment : Fragment() {
                 binding.imageEmptyList.visibility = View.VISIBLE
                 binding.textviewEmptyList.visibility = View.VISIBLE
 
+            } else {
+
+                binding.imageEmptyList.visibility = View.GONE
+                binding.textviewEmptyList.visibility = View.GONE
+
             }
 
             binding.rcvList.adapter = employeeAdapter
