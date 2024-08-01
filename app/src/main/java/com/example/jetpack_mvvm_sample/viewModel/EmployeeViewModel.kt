@@ -22,8 +22,7 @@ data class EmployeeUiState(
 
 @HiltViewModel
 class EmployeeViewModel @Inject constructor(
-    private val employeeRepository: EmployeeRepository,
-    @IODispatcher private val ioDispatcher: CoroutineDispatcher
+    private val employeeRepository: EmployeeRepository
 ) : ViewModel() {
 
     private val _uIState = MutableStateFlow(EmployeeUiState())
@@ -31,7 +30,7 @@ class EmployeeViewModel @Inject constructor(
 
     fun getEmployee(id: Int) {
 
-        viewModelScope.launch(ioDispatcher) {
+        viewModelScope.launch {
             _uIState.update { employeeUiState ->
                 employeeUiState.copy(employee = employeeRepository.getByIdEmployee(id))
             }
@@ -47,7 +46,7 @@ class EmployeeViewModel @Inject constructor(
         department: String?
     ) {
 
-        viewModelScope.launch(ioDispatcher) {
+        viewModelScope.launch {
 
             val employee = Employee()
             employee.name = name
@@ -71,7 +70,7 @@ class EmployeeViewModel @Inject constructor(
         department: String?
     ) {
 
-        viewModelScope.launch(ioDispatcher) {
+        viewModelScope.launch {
 
             val employee = Employee()
             employee.id = id

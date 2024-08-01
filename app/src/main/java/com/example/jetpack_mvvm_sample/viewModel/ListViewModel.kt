@@ -16,8 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ListViewModel @Inject constructor(
-    private val employeeRepository: EmployeeRepository,
-    @IODispatcher private val ioDispatcher: CoroutineDispatcher
+    private val employeeRepository: EmployeeRepository
 ) :
     ViewModel() {
 
@@ -26,7 +25,7 @@ class ListViewModel @Inject constructor(
 
     fun getEmployees() {
 
-        viewModelScope.launch(ioDispatcher) {
+        viewModelScope.launch {
             _employeeLiveData.postValue(employeeRepository.getAllEmployee())
         }
 
